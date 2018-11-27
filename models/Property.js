@@ -10,6 +10,7 @@ var Property = new keystone.List('Property');
 
 Property.add({
 	name: { type: String, required: true, index: true },
+	price: { type: Types.Money, format: '$0.0,00' },
 	phones: { type: Types.TextArray },
 	propType: { type: Types.Select, options: [
 		{ value: 'house', label: 'House' },
@@ -24,5 +25,5 @@ Property.add({
 });
 
 Property.defaultSort = '-createdAt';
-Property.defaultColumns = 'name, propType, createdAt, thumbPhoto';
+Property.defaultColumns = 'name, propType, price, createdAt';
 Property.register();

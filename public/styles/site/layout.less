@@ -14,3 +14,41 @@
     max-width: 100%;
     height: auto;
 }
+
+.properties {
+	display: flex;
+	flex-wrap: wrap;
+
+	.property-item {
+		flex-grow: 1;
+
+		a {
+			color: unset;
+		}
+		a:hover {
+			text-decoration: none;
+		}
+	
+		.property-thumb-image {
+			width: 100%;
+			img {
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.no-thumb-image {
+				border: black 3px solid;
+				border-radius: 5px;
+				width: 300px;
+				height: 200px;
+			}
+		}
+	
+		.property-price {
+			font-weight: bold;
+			color: #003da0;
+			font-size: 27px;
+		}
+	
+	}
+
+}

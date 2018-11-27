@@ -1,0 +1,23 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 My properties
+	
+block content
+	.container
+		if properties.length
+			.properties
+				each property in properties
+					.property-item.col-sm-4.col-md-4
+						a(href=`/property/${property._id}`)
+							h2.property-name= property.name || '<property>'
+						a(href=`/property/${property._id}`)
+							.property-thumb-image.thumbnail
+								if property.thumbPhoto.exists
+									img(src=property._.thumbPhoto.fit(300, 200)).img-rounded
+								else
+									.no-thumb-image
+										p No thumbnail image!
+						.property-id.text-muted Ref. #{property._id}
+						.property-price R$ #{property.price}
