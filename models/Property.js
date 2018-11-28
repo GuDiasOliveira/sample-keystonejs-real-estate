@@ -19,11 +19,14 @@ Property.add({
 		{ value: 'other', label: 'Other...' },
 	] },
 	details: { type: Types.Markdown, default: '# My property :D' },
+	totalArea: { type: Number, format: '0' },
+	usefulArea: { type: Number, format: '0' },
+	rooms: { type: Number, format: '0' },
 	createdAt: { type: Date, default: Date.now },
 	thumbPhoto: { type: Types.CloudinaryImage },
 	photos: { type: Types.CloudinaryImages },
 });
 
 Property.defaultSort = '-createdAt';
-Property.defaultColumns = 'name, propType, price, createdAt';
+Property.defaultColumns = 'name, propType, price, createdAt, totalArea, usefulArea, rooms';
 Property.register();

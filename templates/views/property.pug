@@ -21,3 +21,10 @@ block content
 										p No thumbnail image!
 						.property-id.text-muted Ref. #{property._id}
 						.property-price R$ #{property.price}
+						.row.property-areas-rooms
+							.col-md-4
+								p <strong>#{property.totalArea} m²</strong><br />total area
+							.col-md-4
+								p <strong>#{property.usefulArea} m²</strong><br />useful area
+							.col-md-4
+								p <strong>#{property.rooms}</strong><br />#{property.rooms != 1 ? 'rooms' : 'room'}
