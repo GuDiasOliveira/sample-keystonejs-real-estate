@@ -1,0 +1,26 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1.property-name-view= property.name
+
+block content
+	.container
+		// Property photos carousel
+		#property-photos-carousel.carousel.slide(data-ride='carousel')
+			// Carousel indicators
+			ol.carousel-indicators
+				each photo, i in property.photos
+					li(class=(i == 0 && 'active'), data-target='#property-photos-carousel', data-slide-to=i)
+			// Wrapper for carousel items
+			.carousel-inner
+				each photo, i in property.photos
+					.item(class=(i == 0 && 'active'))
+						img(src=photo.fit(700, 500))
+			// Carousel controls
+			a.carousel-control.left(href='#property-photos-carousel' data-slide='prev')
+				span.glyphicon.glyphicon-chevron-left
+			a.carousel-control.right(href='#property-photos-carousel' data-slide='next')
+				span.glyphicon.glyphicon-chevron-right
+		hr/
+		.property-details!= property.details.html
