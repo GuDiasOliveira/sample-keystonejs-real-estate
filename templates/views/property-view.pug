@@ -5,7 +5,10 @@ block intro
 		h1.property-name-view= property.name
 
 block content
-	.container
+	.container.property-view
+		.row
+			.col-md-6.property-price: h2 R$ #{property.price}
+			.col-md-6.property-type: h2= propertyTypes[property.propType].label
 		// Property photos carousel
 		#property-photos-carousel.carousel.slide(data-ride='carousel')
 			// Carousel indicators
@@ -23,8 +26,13 @@ block content
 			a.carousel-control.right(href='#property-photos-carousel' data-slide='next')
 				span.glyphicon.glyphicon-chevron-right
 		hr/
-		p <strong>#{property.totalArea} m²</strong> total area
-		p <strong>#{property.usefulArea} m²</strong> useful area
-		p <strong>#{property.rooms}</strong> #{property.rooms != 1 ? 'rooms' : 'room'}
+		.row.property-areas-rooms
+			.col-md-4: h4 <strong>#{property.totalArea} m²</strong> total area
+			.col-md-4: h4 <strong>#{property.usefulArea} m²</strong> useful area
+			.col-md-4: h4 <strong>#{property.rooms}</strong> #{property.rooms != 1 ? 'rooms' : 'room'}
 		hr/
 		.property-details!= property.details.html
+		hr/
+		h2 Phones
+		each phone in property.phones
+			p= phone

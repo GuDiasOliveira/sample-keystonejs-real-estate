@@ -6,26 +6,27 @@ block intro
 	
 block content
 	.container
-		if properties.length
-			.properties
-				each property in properties
-					.property-item.col-sm-4.col-md-4
-						a(href=`/property/${property._id}`)
-							h2.property-name= property.name || '<property>'
-						a(href=`/property/${property._id}`)
-							.property-thumb-image.thumbnail
-								if property.thumbPhoto.exists
-									img(src=property._.thumbPhoto.fit(300, 200)).img-rounded
-								else
-									.no-thumb-image
-										p No thumbnail image!
-						.property-id.text-muted Ref. #{property._id}
-						.property-price R$ #{property.price}
-						.property-type= propertyTypes[property.propType].label
-						.row.property-areas-rooms
-							.col-md-4
-								p <strong>#{property.totalArea} m²</strong><br />total area
-							.col-md-4
-								p <strong>#{property.usefulArea} m²</strong><br />useful area
-							.col-md-4
-								p <strong>#{property.rooms}</strong><br />#{property.rooms != 1 ? 'rooms' : 'room'}
+		.properties
+			each property in properties
+				.property-item.col-sm-4.col-md-4
+					a(href=`/property/${property._id}`)
+						h2.property-name= property.name || '<property>'
+					a(href=`/property/${property._id}`)
+						.property-thumb-image.thumbnail
+							if property.thumbPhoto.exists
+								img(src=property._.thumbPhoto.fit(300, 200)).img-rounded
+							else
+								.no-thumb-image
+									p No thumbnail image!
+					.property-id.text-muted Ref. #{property._id}
+					.property-price R$ #{property.price}
+					.property-type= propertyTypes[property.propType].label
+					.row.property-areas-rooms
+						.col-md-4
+							p <strong>#{property.totalArea} m²</strong><br />total area
+						.col-md-4
+							p <strong>#{property.usefulArea} m²</strong><br />useful area
+						.col-md-4
+							p <strong>#{property.rooms}</strong><br />#{property.rooms != 1 ? 'rooms' : 'room'}
+			else
+				h2.properties-empty No properties

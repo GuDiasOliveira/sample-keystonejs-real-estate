@@ -61,6 +61,12 @@
 	
 	}
 
+	.properties-empty {
+		text-align: center;
+		color: #f00;
+		font-style: italic;
+	}
+
 }
 
 h1.property-name-view {
@@ -68,6 +74,30 @@ h1.property-name-view {
 	font-style: italic;
 	color: #003da0;
 	text-align: center;
+}
+
+.property-view {
+	
+	.property-price, .property-type {
+		> * {
+			width: 100%;
+		}
+	}
+	
+	.property-price {
+		text-align: left;
+		color: #003da0;
+		font-weight: bold;
+	}
+
+	.property-type {
+		text-align: right;
+		color: #f00;
+	}
+
+	.property-areas-rooms {
+		text-align: center;
+	}
 }
 
 
