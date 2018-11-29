@@ -76,7 +76,48 @@ html
 			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
 			//- Remember to include it in your templates when you override the intro and content blocks!
 			nav.sidebar
-				p nfdsbfghsd hfdshbgfdsjbgdf hfudhfsdÇpa
+				form(action="/", method="get")
+					h3 Filter properties
+					.form-group
+						label(for="name") Name
+						input.form-control(type="text", name="name", id="name")
+					.form-group
+						label(for="min-price") Price
+						.row
+							.col-md-6
+								input.form-control(type="number", name="min-price", id="min-price", min='0', step='0.01', placeholder='Min')
+							.col-md-6
+								input.form-control(type="number", name="max-price", id="max-price", min='0', step='0.01', placeholder='Max')
+					.form-group
+						label(for="type") Type
+						select.form-control(name="type", id="type")
+							option(value='', selected=true) &lt;All types&gt;
+							each propType in propertyTypes
+								option(value=propType.value)= propType.label
+					.form-group
+						label(for="min-area") Area
+						.row
+							.col-md-6
+								input.form-control(type="number", name="min-area", id="min-area", min='0', step='1', placeholder='Min')
+							.col-md-6
+								input.form-control(type="number", name="max-area", id="max-area", min='0', step='1', placeholder='Max')
+						.row
+							.col-md-6
+								label.radio-inline
+									input(type="radio", name="area-type", id="area-type-useful", value="useful", checked=true)
+									| Useful area
+							.col-md-6
+								label.radio-inline
+									input(type="radio", name="area-type", id="area-type-total", value="total", checked=false)
+									| Total area
+					.form-group
+						label(for="min-rooms") Rooms
+						select.form-control(name="min-rooms", id="min-rooms")
+							option(value='', selected=true) &lt;any&gt;
+							- for (let i = 1; i <= 5; i++)
+								option(value=i) #{i}+
+					.form-group
+						button.btn.btn-default(type='submit') Search
 
 			.page-content
 				//- The Intro block appears above flash messages (used for temporary information display)

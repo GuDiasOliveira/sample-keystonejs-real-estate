@@ -8,6 +8,7 @@
  * modules in your project's /lib directory.
  */
 var _ = require('lodash');
+var keystone = require('keystone');
 
 
 /**
@@ -25,6 +26,7 @@ exports.initLocals = function (req, res, next) {
 		// { label: 'Properties', key: 'properties', href: '/properties' },
 	];
 	res.locals.user = req.user;
+	res.locals.propertyTypes = keystone.list('Property').fields.propType.map;
 	next();
 };
 
