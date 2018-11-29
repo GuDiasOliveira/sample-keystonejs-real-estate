@@ -21,6 +21,7 @@ block content
 										p No thumbnail image!
 						.property-id.text-muted Ref. #{property._id}
 						.property-price R$ #{property.price}
+						.property-type= propertyTypes[property.propType].label
 						.row.property-areas-rooms
 							.col-md-4
 								p <strong>#{property.totalArea} m²</strong><br />total area
