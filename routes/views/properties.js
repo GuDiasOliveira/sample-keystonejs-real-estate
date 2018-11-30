@@ -17,9 +17,10 @@ exports = module.exports = function (req, res) {
 	locals.buildUrl = require('build-url');
 
 	// Load the properties by sortOrder
-	// Query filters
+	// Query search
 	function queryWithFilters () {
-		var propertiesQuery = keystone.list('Property').model.find().sort('sortOrder');
+		var propertiesQuery = keystone.list('Property').model.find();
+		// Query filters
 		if (req.query.name) {
 			propertiesQuery = propertiesQuery.where('name', req.query.name);
 		}
@@ -49,6 +50,31 @@ exports = module.exports = function (req, res) {
 		}
 		if (req.query.minRooms) {
 			propertiesQuery = propertiesQuery.where('rooms').gte(+req.query.minRooms);
+		}
+		// Query sorting
+		if (req.query.sort) {
+			switch (req.query.sort) {
+				case 'priceAsc':
+					propertiesQuery = propertiesQuery.sort('price');
+					break;
+				case 'priceDesc':
+					propertiesQuery = propertiesQuery.sort('-price');
+					break;
+				case 'usefulAreaDesc':
+					propertiesQuery = propertiesQuery.sort('-usefulArea');
+					break;
+				case 'usefulAreaAsc':
+					propertiesQuery = propertiesQuery.sort('usefulArea');
+					break;
+				case 'roomsDesc':
+					propertiesQuery = propertiesQuery.sort('-rooms');
+					break;
+				case 'roomsAsc':
+					propertiesQuery = propertiesQuery.sort('rooms');
+					break;
+				default:
+					propertiesQuery = propertiesQuery.sort('sortOrder');
+			}
 		}
 		return propertiesQuery;
 	}

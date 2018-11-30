@@ -116,6 +116,16 @@ html
 							option(value='', selected=true) &lt;any&gt;
 							- for (let i = 1; i <= 5; i++)
 								option(value=i) #{i}+
+					h3 Order by
+					.form-group
+						select.form-control(name="sort", id="sort")
+							option(value='', selected=true) &lt;select&gt;
+							option(value='priceAsc') Lowest price
+							option(value='priceDesc') Highest price
+							option(value='usefulAreaDesc') Biggest area
+							option(value='usefulAreaAsc') Smallest area
+							option(value='roomsDesc') More rooms
+							option(value='roomsAsc') Less rooms
 					.form-group
 						button.btn.btn-default(type='submit') Search
 
