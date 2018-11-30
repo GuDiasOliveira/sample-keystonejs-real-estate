@@ -5,8 +5,61 @@ block intro
 		h1 My properties
 	
 block content
-	.container
-		.properties
+	.container.properties
+		nav.sidebar
+			form(action="/", method="get", id="form-search")
+				h3 Filter properties
+				.form-group
+					label(for="name") Name
+					input.form-control(type="text", name="name", id="name")
+				.form-group
+					label(for="min-price") Price
+					.row
+						.col-md-6
+							input.form-control(type="number", name="minPrice", id="min-price", min='0', step='0.01', placeholder='Min')
+						.col-md-6
+							input.form-control(type="number", name="maxPrice", id="max-price", min='0', step='0.01', placeholder='Max')
+				.form-group
+					label(for="type") Type
+					select.form-control(name="type", id="type")
+						option(value='', selected=true) &lt;All types&gt;
+						each propType in propertyTypes
+							option(value=propType.value)= propType.label
+				.form-group
+					label(for="min-area") Area
+					.row
+						.col-md-6
+							input.form-control(type="number", name="minArea", id="min-area", min='0', step='1', placeholder='Min')
+						.col-md-6
+							input.form-control(type="number", name="maxArea", id="max-area", min='0', step='1', placeholder='Max')
+					.row
+						.col-md-6
+							label.radio-inline
+								input(type="radio", name="areaType", id="area-type-useful", value="useful", checked=true)
+								| Useful area
+						.col-md-6
+							label.radio-inline
+								input(type="radio", name="areaType", id="area-type-total", value="total", checked=false)
+								| Total area
+				.form-group
+					label(for="min-rooms") Rooms
+					select.form-control(name="minRooms", id="min-rooms")
+						option(value='', selected=true) &lt;any&gt;
+						- for (let i = 1; i <= 5; i++)
+							option(value=i) #{i}+
+				h3 Order by
+				.form-group
+					select.form-control(name="sort", id="sort")
+						option(value='', selected=true) &lt;select&gt;
+						option(value='priceAsc') Lowest price
+						option(value='priceDesc') Highest price
+						option(value='usefulAreaDesc') Biggest area
+						option(value='usefulAreaAsc') Smallest area
+						option(value='roomsDesc') More rooms
+						option(value='roomsAsc') Less rooms
+				.form-group
+					button.btn.btn-default(type='submit') Search
+		.properties-list
 			each property in properties
 				.property-item.col-sm-4.col-md-4
 					a(href=`/property/${property._id}`)
@@ -58,3 +111,18 @@ block content
 				if currentPage < (maxPagesCount - 1)
 					- pageLinkParams.page = maxPagesCount;
 					li(): a(href=buildUrl('/', { queryParams: pageLinkParams })) &gt;&gt;&gt;
+
+block js
+	script.
+		$('form#form-search').submit(function() {
+			// Unset url params whose fields are blank
+			$(this).find(":input").filter(function() {
+				return !this.value;
+			}).attr("disabled", true);
+			// Unset area type if area search param is blank
+			if (!$(this).find('input[name="minArea"]').val() && !$(this).find('input[name="maxArea"]').val()) {
+				$(this).find('input[name="areaType"]').attr('disabled', true);
+			}
+			// Submit
+			return true;
+		});

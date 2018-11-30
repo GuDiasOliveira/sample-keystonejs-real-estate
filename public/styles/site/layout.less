@@ -15,9 +15,10 @@
     height: auto;
 }
 
-.properties {
+.properties-list {
 	display: flex;
 	flex-wrap: wrap;
+	max-width: 100%;
 
 	.property-item {
 		flex-grow: 1;
@@ -115,9 +116,11 @@ h1.property-name-view {
 	margin: 20px;
 }
 
-#body {
+.properties {
 	display: flex;
-	flex-wrap: wrap;
+	@media screen and (max-width: 600px) {
+		flex-wrap: wrap;
+	}
 }
 
 .page-cover {
@@ -143,16 +146,9 @@ h1.property-name-view {
 }
 
 .sidebar {
-	flex-shrink: 1;
+	float: left;
 	padding: 10px;
 	margin: 10px;
 	width: 10%;
 	min-width: 200px;
-}
-
-.page-content {
-	width: 65%;
-	.container {
-		max-width: 100%;
-	}
 }
