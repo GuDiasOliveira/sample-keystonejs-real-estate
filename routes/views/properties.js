@@ -1,5 +1,9 @@
 var keystone = require('keystone');
 
+// Pagination parameters
+const perPage = 12; // How many properties to be shown per page
+const maxPagesListing = 9; // How many numbers of pages to be listed on pagination navigation menu
+
 exports = module.exports = function (req, res) {
 
 	var view = new keystone.View(req, res);
@@ -7,8 +11,13 @@ exports = module.exports = function (req, res) {
 
 	// Set locals
 	locals.section = 'Properties';
+	locals.urlParams = req.query;
+	locals.perPage = perPage;
+	locals.maxPagesListing = maxPagesListing;
+	locals.buildUrl = require('build-url');
 
 	// Load the properties by sortOrder
+	// Query filters
 	var propertiesQuery = keystone.list('Property').model.find().sort('sortOrder');
 	if (req.query.name) {
 		propertiesQuery = propertiesQuery.where('name', req.query.name);
@@ -40,6 +49,12 @@ exports = module.exports = function (req, res) {
 	if (req.query.minRooms) {
 		propertiesQuery = propertiesQuery.where('rooms').gte(+req.query.minRooms);
 	}
+	// Query pagination
+	var page = req.query.page || 1;
+	propertiesQuery = propertiesQuery.skip((page - 1) * perPage).limit(perPage);
+	// Counting total properties
+	view.query('allPropertiesCount', keystone.list('Property').model.count());
+	// Querying
 	view.query('properties', propertiesQuery);
 
 	// Render the view
