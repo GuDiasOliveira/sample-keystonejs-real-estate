@@ -76,7 +76,7 @@ html
 			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
 			//- Remember to include it in your templates when you override the intro and content blocks!
 			nav.sidebar
-				form(action="/", method="get")
+				form(action="/", method="get", id="form-search")
 					h3 Filter properties
 					.form-group
 						label(for="name") Name
@@ -155,6 +155,19 @@ html
 			script(src='/keystone/js/content/editor.js')
 
 		//- Add scripts that are globally required by your site here.
+		script.
+			$('form#form-search').submit(function() {
+				// Unset url params whose fields are blank
+				$(this).find(":input").filter(function() {
+					return !this.value;
+				}).attr("disabled", true);
+				// Unset area type if area search param is blank
+				if (!$(this).find('input[name="minArea"]').val() && !$(this).find('input[name="maxArea"]').val()) {
+					$(this).find('input[name="areaType"]').attr('disabled', true);
+				}
+				// Submit
+				return true;
+			});
 
 		//- Include template-specific javascript files by extending the js block
 		block js

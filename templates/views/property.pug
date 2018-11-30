@@ -33,28 +33,28 @@ block content
 		-
 			let currentPage = +urlParams.page || 1;
 			let minPage = Math.max(currentPage - parseInt(maxPagesListing / 2) , 1);
-			let maxPagesCount = Math.max(1, Math.ceil(allPropertiesCount / perPage));
+			let maxPagesCount = Math.max(1, Math.ceil(propertiesCount / perPage));
 			let maxPage = Math.min(minPage + maxPagesListing - 1, maxPagesCount);
 			let pageLinkParams = Object.assign({}, urlParams);
 		if maxPagesCount > 1
 			ul.pagination
+				//- Start page
 				if currentPage > 2
-					//- Start page
 					- pageLinkParams.page = 1;
 					li(): a(href=buildUrl('/', { queryParams: pageLinkParams })) &lt;&lt;&lt;
+				//- Previous page
 				if currentPage > 1
-					//- Previous page
 					- pageLinkParams.page = currentPage - 1;
 					li(): a(href=buildUrl('/', { queryParams: pageLinkParams })) &lt;&lt;
 				//- Pages
 				- for (let p = minPage; p <= maxPage; p++)
 					- pageLinkParams.page = p;
 					li(class=(p == currentPage && 'active')): a(href=buildUrl('/', { queryParams: pageLinkParams }))= p
+				//- Next page
 				if currentPage < maxPagesCount
-					//- Next page
 					- pageLinkParams.page = currentPage + 1;
 					li(): a(href=buildUrl('/', { queryParams: pageLinkParams })) &gt;&gt;
+				//- End page
 				if currentPage < (maxPagesCount - 1)
-					//- End page
 					- pageLinkParams.page = maxPagesCount;
 					li(): a(href=buildUrl('/', { queryParams: pageLinkParams })) &gt;&gt;&gt;
