@@ -4,6 +4,16 @@ var keystone = require('keystone');
 const perPage = 12; // How many properties to be shown per page
 const maxPagesListing = 9; // How many numbers of pages to be listed on pagination navigation menu
 
+// Sort options
+const sortOptions = {
+	priceAsc: 'Lowest price',
+	priceDesc: 'Highest price',
+	usefulAreaDesc: 'Biggest area',
+	usefulAreaAsc: 'Smallest area',
+	roomsDesc: 'More rooms',
+	roomsAsc: 'Less rooms',
+};
+
 exports = module.exports = function (req, res) {
 
 	var view = new keystone.View(req, res);
@@ -15,6 +25,7 @@ exports = module.exports = function (req, res) {
 	locals.perPage = perPage;
 	locals.maxPagesListing = maxPagesListing;
 	locals.buildUrl = require('build-url');
+	locals.sortOptions = sortOptions;
 
 	// Load the properties by sortOrder
 	// Query search

@@ -11,52 +11,48 @@ block content
 				h3 Filter properties
 				.form-group
 					label(for="name") Name
-					input.form-control(type="text", name="name", id="name")
+					input.form-control(type="text", name="name", id="name", value=urlParams.name)
 				.form-group
 					label(for="min-price") Price
 					.row
 						.col-md-6
-							input.form-control(type="number", name="minPrice", id="min-price", min='0', step='0.01', placeholder='Min')
+							input.form-control(type="number", name="minPrice", id="min-price", value=urlParams.minPrice, min='0', step='0.01', placeholder='Min')
 						.col-md-6
-							input.form-control(type="number", name="maxPrice", id="max-price", min='0', step='0.01', placeholder='Max')
+							input.form-control(type="number", name="maxPrice", id="max-price", value=urlParams.maxPrice, min='0', step='0.01', placeholder='Max')
 				.form-group
 					label(for="type") Type
 					select.form-control(name="type", id="type")
-						option(value='', selected=true) &lt;All types&gt;
+						option(value='', selected=!urlParams.type) &lt;All types&gt;
 						each propType in propertyTypes
-							option(value=propType.value)= propType.label
+							option(value=propType.value, selected=(urlParams.type == propType.value))= propType.label
 				.form-group
 					label(for="min-area") Area
 					.row
 						.col-md-6
-							input.form-control(type="number", name="minArea", id="min-area", min='0', step='1', placeholder='Min')
+							input.form-control(type="number", name="minArea", id="min-area", value=urlParams.minArea, min='0', step='1', placeholder='Min')
 						.col-md-6
-							input.form-control(type="number", name="maxArea", id="max-area", min='0', step='1', placeholder='Max')
+							input.form-control(type="number", name="maxArea", id="max-area", value=urlParams.maxArea, min='0', step='1', placeholder='Max')
 					.row
 						.col-md-6
 							label.radio-inline
-								input(type="radio", name="areaType", id="area-type-useful", value="useful", checked=true)
+								input(type="radio", name="areaType", id="area-type-useful", value="useful", checked=(!urlParams.areaType || urlParams.areaType == 'useful'))
 								| Useful area
 						.col-md-6
 							label.radio-inline
-								input(type="radio", name="areaType", id="area-type-total", value="total", checked=false)
+								input(type="radio", name="areaType", id="area-type-total", value="total", checked=(urlParams.areaType == 'total'))
 								| Total area
 				.form-group
 					label(for="min-rooms") Rooms
 					select.form-control(name="minRooms", id="min-rooms")
-						option(value='', selected=true) &lt;any&gt;
+						option(value='', selected=!urlParams.minRooms) &lt;any&gt;
 						- for (let i = 1; i <= 5; i++)
-							option(value=i) #{i}+
+							option(value=i, selected=(urlParams.minRooms == i)) #{i}+
 				h3 Order by
 				.form-group
 					select.form-control(name="sort", id="sort")
-						option(value='', selected=true) &lt;select&gt;
-						option(value='priceAsc') Lowest price
-						option(value='priceDesc') Highest price
-						option(value='usefulAreaDesc') Biggest area
-						option(value='usefulAreaAsc') Smallest area
-						option(value='roomsDesc') More rooms
-						option(value='roomsAsc') Less rooms
+						option(value='', selected=!urlParams.sort) &lt;select&gt;
+						each sortOption in Object.keys(sortOptions)
+							option(value=sortOption, selected=(urlParams.sort == sortOption))= sortOptions[sortOption]
 				.form-group
 					button.btn.btn-default(type='submit') Search
 		.properties-list
